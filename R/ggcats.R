@@ -6,7 +6,7 @@ ggcats <- function(data, x, y, position = 1, labels = FALSE) {
       dplyr::group_by({{x}}, {{y}}) %>%
       dplyr::count() %>%
       dplyr::group_by({{x}}) %>%
-      dplyr::mutate(percent = n/sum(n)) %>%
+      dplyr::mutate(percent = round(n/sum(n), 3)) %>%
       ggplot2::ggplot(aes(x = {{x}}, y = percent, fill = {{y}})) +
       geom_bar(stat = "identity", position = ifelse(position == 1, "dodge", "stack")) +
       scale_y_continuous(labels = scales::percent) -> cat
@@ -18,7 +18,7 @@ ggcats <- function(data, x, y, position = 1, labels = FALSE) {
         dplyr::group_by({{x}}, {{y}}) %>%
         dplyr::count() %>%
         dplyr::group_by({{x}}) %>%
-        dplyr::mutate(percent = n/sum(n)) %>%
+        dplyr::mutate(percent = round(n/sum(n), 3)) %>%
         ggplot2::ggplot(aes(x = {{x}}, y = percent, fill = {{y}})) +
         geom_bar(stat = "identity", position = ifelse(position == 1, "dodge", "stack")) +
         geom_text(aes({{x}}, percent, label = scales::percent(percent)),
@@ -31,7 +31,7 @@ ggcats <- function(data, x, y, position = 1, labels = FALSE) {
         dplyr::group_by({{x}}, {{y}}) %>%
         dplyr::count() %>%
         dplyr::group_by({{x}}) %>%
-        dplyr::mutate(percent = n/sum(n)) %>%
+        dplyr::mutate(percent = round(n/sum(n), 3)) %>%
         ggplot2::ggplot(aes(x = {{x}}, y = percent, fill = {{y}})) +
         geom_bar(stat = "identity", position = ifelse(position == 1, "dodge", "stack")) +
         geom_text(aes(label = scales::percent(percent)),
